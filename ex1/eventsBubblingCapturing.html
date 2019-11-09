@@ -1,0 +1,41 @@
+<html>
+<head>
+    <style>
+        #Outer {width:700;height:500;background-color:silver}
+        #Inner {width:500;height:300;background-color:green;margin:50px;top:20px;position:relative}
+    </style>
+</head>
+<body>
+
+<div id="outer">Outer
+    <div id="inner">Inner</div>
+</div>
+
+<script>
+
+
+    function clicked(e) {
+        console.log("Outer")
+        console.log("This:" + this.id);
+        console.log("Target:" + e.target.id);
+        console.log("Current Target:" + e.currentTarget.id);
+    }
+
+    function clickedInner(e) {
+        e.stopPropagation()
+        console.log("Inner")
+        console.log("This:" + this.id);
+        console.log("Target:" + e.target.id);
+        console.log("Current Target:" + e.currentTarget.id);
+    }
+
+
+    //Von Bubbling auf Capturing umgedreht. Jetzt werden zuerst die äußeren Eventhandler abgehandelt
+    //true muss bei allen in der Kette gesetzt sein.
+    document.getElementById("outer").addEventListener("click",clicked,true);
+    document.getElementById("inner").addEventListener("click",clickedInner,true);
+
+</script>
+</body>
+
+</html>
